@@ -66,8 +66,8 @@ class WebDriverPool {
 		// Read config file
 		sConfig = new Properties();
 		String configFile = DEFAULT_CONFIG_FILE;
-		if (System.getProperty("selenuim_config")!=null){
-			configFile = System.getProperty("selenuim_config");
+		if (System.getProperty("selenium_config")!=null){
+			configFile = System.getProperty("selenium_config");
 		}
 		sConfig.load(new FileReader(configFile));
 
