@@ -2,6 +2,7 @@ package us.codecraft.webmagic.downloader.selenium;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
@@ -136,7 +137,14 @@ class WebDriverPool {
         } else if (driver.equals(DRIVER_FIREFOX)) {
             mDriver = new FirefoxDriver(sCaps);
         } else if (driver.equals(DRIVER_CHROME)) {
-            mDriver = new ChromeDriver(sCaps);
+            String arguments = sConfig.getProperty("chrome.options.arguments");
+            if (arguments != null) {
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments(arguments.split(","));
+                mDriver = new ChromeDriver(options);
+            } else {
+                mDriver = new ChromeDriver(sCaps);
+            }
         } else if (driver.equals(DRIVER_PHANTOMJS)) {
             mDriver = new PhantomJSDriver(sCaps);
         }
