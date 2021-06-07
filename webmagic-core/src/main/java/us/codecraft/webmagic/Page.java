@@ -41,7 +41,7 @@ public class Page {
 
     private Selectable url;
 
-    private Map<String,List<String>> headers;
+    private Map<String, List<String>> headers;
 
     private int statusCode = HttpConstant.StatusCode.CODE_200;
 
@@ -52,11 +52,13 @@ public class Page {
     private List<Request> targetRequests = new ArrayList<Request>();
 
     private String charset;
-    
+
+    private List<Page> children = new ArrayList<>();
+
     public Page() {
     }
 
-    public static Page fail(){
+    public static Page fail() {
         Page page = new Page();
         page.setDownloadSuccess(false);
         return page;
@@ -71,7 +73,7 @@ public class Page {
     /**
      * store extract results
      *
-     * @param key key
+     * @param key   key
      * @param field field
      */
     public void putField(String key, Object field) {
@@ -249,6 +251,22 @@ public class Page {
         this.charset = charset;
     }
 
+    public List<Page> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Page> pages) {
+        this.children = pages;
+    }
+
+    public void addChildren(Page page) {
+        this.children.add(page);
+    }
+
+    public void addChildren(List<Page> pages) {
+        this.children.addAll(pages);
+    }
+
     @Override
     public String toString() {
         return "Page{" +
@@ -264,6 +282,7 @@ public class Page {
                 ", targetRequests=" + targetRequests +
                 ", charset='" + charset + '\'' +
                 ", bytes=" + Arrays.toString(bytes) +
+                ", children=" + children +
                 '}';
     }
 }
